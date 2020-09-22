@@ -1,0 +1,106 @@
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Bus Detail</h1>
+    <p class="mb-4">Agency owned buses</p>
+
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div id="grid" class="table-responsive">
+
+                <button class="d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-2" type="submit" id="addBus"
+                    (click)="addBus(createBusModal)">
+                    Add Bus
+                </button>
+
+                <kendo-grid [data]="gridView" [pageSize]="pageSize" [skip]="skip" [pageable]="true" [height]="400"
+                    (pageChange)="pageChange($event)">
+
+                    <kendo-grid-column field="id" title="ID"></kendo-grid-column>
+                    <kendo-grid-column field="code" title="Bus Code"></kendo-grid-column>
+                    <kendo-grid-column field="capacity" title="Capacity"></kendo-grid-column>
+                    <kendo-grid-column field="make" title="Model"></kendo-grid-column>
+                    <kendo-grid-column field="action" title="Action">
+                        <ng-template kendoGridCellTemplate let-dataItem>
+                            <button class="d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="submit"
+                                id="updateBus" (click)="editBus(editBusModal, dataItem.id)">
+                                Update
+                            </button>
+
+                            <span class="m-1"></span>
+
+                            <button class="d-sm-inline-block btn btn-sm btn-danger shadow-sm" type="submit"
+                                id="deleteBus" (click)="removeBus(deleteBusModal, dataItem.id)">
+                                Delete
+                            </button>
+                        </ng-template>
+                    </kendo-grid-column>
+
+                </kendo-grid>
+
+            </div>
+        </div>
+    </div>
+
+    <ng-template #createBusModal let-modal>
+        <div id="createBusModal">
+            <div class="modal-body">
+                <div>
+                    <label for="busCode">Bus Code</label>
+                    <input type="text" id="busCode" [(ngModel)]="bus.code">
+                </div>
+
+                <div>
+                    <label for="capacity">Capacity</label>
+                    <input type="number" id="capacity" [(ngModel)]="bus.capacity">
+                </div>
+
+                <div>
+                    <label for="model">Model</label>
+                    <input type="text" id="model" [(ngModel)]="bus.make">
+                </div>
+
+                <button type="submit" (click)="modal.dismiss('save')">Add Item</button>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template #editBusModal let-modal>
+        <div id="editBusModal">
+            <div class="modal-body">
+                <div>
+                    <label for="busCode">Bus Code</label>
+                    <input type="text" id="busCode" [(ngModel)]="bus.code">
+                </div>
+
+                <div>
+                    <label for="capacity">Capacity</label>
+                    <input type="number" id="capacity" [(ngModel)]="bus.capacity">
+                </div>
+
+                <div>
+                    <label for="model">Model</label>
+                    <input type="text" id="model" [(ngModel)]="bus.make">
+                </div>
+
+                <button type="submit" (click)="modal.dismiss('save')">Update</button>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template #deleteBusModal let-modal>
+        <div id="deleteBusModal">
+            <div class="modal-body">
+                <div>
+                    <h3>Are you sure you want to delete?</h3>
+                </div>
+
+                <button type="submit" (click)="modal.dismiss('save')">Sure</button>
+                <button type="submit" (click)="modal.dismiss('cancel')">Cancel</button>
+            </div>
+        </div>
+    </ng-template>
+
+</div>
+<!-- /.container-fluid -->

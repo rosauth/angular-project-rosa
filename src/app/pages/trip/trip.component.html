@@ -1,0 +1,113 @@
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <div class="row">
+        <!-- Content Row -->
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <h3 class="text-gray-800">Trips</h3>
+                <h5>Agency trips</h5>
+                <div id="tripTable" class="table-responsive">
+                    <button class="d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-2" type="submit" id="createTrip"
+                    (click)="addTrip(createTripModal)">
+                        New Trip
+                    </button>
+    
+                    <kendo-grid [data]="gridView" [pageSize]="pageSize" [skip]="skip" [pageable]="true" [height]="400"
+                        (pageChange)="pageChange($event)">
+    
+                        <kendo-grid-column field="id" title="ID"></kendo-grid-column>
+                        <kendo-grid-column field="bus.code" title="Bus Code"></kendo-grid-column>
+                        <kendo-grid-column field="sourceStop.name" title="Source Stop"></kendo-grid-column>
+                        <kendo-grid-column field="destStop.name" title="Destination Stop"></kendo-grid-column>
+                        <kendo-grid-column field="journeyTime" title="Duration"></kendo-grid-column>
+                        <kendo-grid-column field="fare" title="Fare"></kendo-grid-column>
+                        <kendo-grid-column field="action" title="Action">
+                            <ng-template kendoGridCellTemplate let-dataItem>
+                                <button class="d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="submit"
+                                    id="updateTrip">
+                                    Update
+                                </button>
+    
+                                <span class="m-1"></span>
+    
+                                <button class="d-sm-inline-block btn btn-sm btn-danger shadow-sm" type="submit"
+                                    id="deleteTrip">
+                                    Delete
+                                </button>
+                            </ng-template>
+                        </kendo-grid-column>
+    
+                    </kendo-grid>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #createTripModal let-modal>
+        <div id="createTripModal">
+            <div class="modal-body">
+                <div>
+                    <label for="busCode">Bus Code</label>
+                    <input type="text" id="busCode" [(ngModel)]="busCode">
+                </div>
+
+                <div>
+                    <label for="sourceStop">Source Stop</label>
+                    <input type="text" id="sourceStop" [(ngModel)]="sourceStop">
+                </div>
+
+                <div>
+                    <label for="destStop">Destination Stop</label>
+                    <input type="text" id="destStop" [(ngModel)]="destStop">
+                </div>
+
+                <div>
+                    <label for="model">Model</label>
+                    <input type="text" id="model" [(ngModel)]="bus.make">
+                </div>
+
+                <button type="submit" (click)="modal.dismiss('save')">Add Item</button>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template #editBusModal let-modal>
+        <div id="editBusModal">
+            <div class="modal-body">
+                <div>
+                    <label for="busCode">Bus Code</label>
+                    <input type="text" id="busCode" [(ngModel)]="bus.code">
+                </div>
+
+                <div>
+                    <label for="capacity">Capacity</label>
+                    <input type="number" id="capacity" [(ngModel)]="bus.capacity">
+                </div>
+
+                <div>
+                    <label for="model">Model</label>
+                    <input type="text" id="model" [(ngModel)]="bus.make">
+                </div>
+
+                <button type="submit" (click)="modal.dismiss('save')">Update</button>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template #deleteBusModal let-modal>
+        <div id="deleteBusModal">
+            <div class="modal-body">
+                <div>
+                    <h3>Are you sure you want to delete?</h3>
+                </div>
+
+                <button type="submit" (click)="modal.dismiss('save')">Sure</button>
+                <button type="submit" (click)="modal.dismiss('cancel')">Cancel</button>
+            </div>
+        </div>
+    </ng-template>
+
+</div>
+<!-- /.container-fluid -->
